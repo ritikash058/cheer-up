@@ -1,0 +1,21 @@
+{
+  "name": "cheer-up",
+  "version": "1.0.0",
+  "main": "main.js",
+  "productName": "Cheer Up",
+  "scripts": {
+    "test": "test",
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^40.1.0"
+  },
+  "build": {
+    "appId": "com.yourname.cheerup",
+    "productName": "Cheer Up"
+  }
+}
