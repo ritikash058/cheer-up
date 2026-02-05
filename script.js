@@ -1,4 +1,7 @@
-export const motivationalQuotes = [
+const { ipcRenderer } = require('electron');
+const ipc = ipcRenderer;
+
+const motivationalQuotes = [
     { text: "You're doing amazing! Keep going! 🌟", emoji: "🌟" },
     { text: "Believe in yourself, you've got this! 💪", emoji: "💪" },
     { text: "Today is YOUR day to shine! ✨", emoji: "✨" },
@@ -27,14 +30,21 @@ export const motivationalQuotes = [
 ];
 
 
-// Function to get only cheering quote
-export function getRandomMotivational() {
+function getRandomMotivational() {
     const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
     document.getElementById('quote').textContent = quote.text;
     return quote;
 }
 
-// Initialize with random motivational quote on load
 document.addEventListener('DOMContentLoaded', () => {
     getRandomMotivational();
+    document.getElementById('close-btn').addEventListener('click', () => {
+        ipc.send('closeApp');
+    });
+    document.getElementById('minimize-btn').addEventListener('click', () => {
+        ipc.send('minimizeApp');
+    });
+    document.getElementById('maximize-btn').addEventListener('click', () => {
+        ipc.send('maximizeApp');
+    });
 });

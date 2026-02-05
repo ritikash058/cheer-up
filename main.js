@@ -1,4 +1,7 @@
 const { app, BrowserWindow, Notification } = require('electron/main');
+const path = require('path');
+const { ipcMain } = require('electron');
+
 app.setName('Cheer Up');
 app.setAppUserModelId('Cheer Up'); 
 const cheeringQuotes = [
@@ -18,18 +21,33 @@ function getRandomQuote() {
   return cheeringQuotes[Math.floor(Math.random() * cheeringQuotes.length)];
 }
 
+let win;
+
 function createWindow() {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+    win = new BrowserWindow({
+        width: 350,
+        height: 400,
+        resizable: false,
+        maximizable: false,
+        fullscreenable: false,
+        frame: false, 
         webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false
+            preload: path.join(__dirname, "preload.js"),
+            contextIsolation: false,
+            nodeIntegration: true
         }
     });
     win.setMenuBarVisibility(false);
     win.loadFile('index.html');
-    
+    ipcMain.on('closeApp', () => {
+        win.close();
+    });
+    ipcMain.on('minimizeApp', () => {
+      win.minimize();
+    });
+    ipcMain.on('maximizeApp', () => {
+      win.maximize();
+    });
     // Send initial quote to renderer when window loads
     win.webContents.on('did-finish-load', () => {
         const initialQuote = getRandomQuote();
