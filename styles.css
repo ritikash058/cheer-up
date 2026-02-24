@@ -6,7 +6,7 @@ body {
   user-select: none;
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 100vh;
 }
 
 #menu-bar {
@@ -14,7 +14,7 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 30px;
-  background: #e69366;
+  background: #b3f7f9;
   -webkit-app-region: drag;
   padding: 0 10px;
   font-family:PixeBoy;
@@ -32,6 +32,12 @@ body {
 
 .menubar-btn {
   -webkit-app-region: no-drag;
+  font-size: 16px;
+  padding: 0 5px;
+  border:1px solid white;
+  border-radius: 5px;
+  color: white;
+  background: transparent;
 }
 .container {
     color: #000;
@@ -44,12 +50,18 @@ body {
     justify-content: center;
     align-items: center;
     letter-spacing: 3px;
+    animation: slide 6s linear;
 }
 main {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 0;
+  background-image: url('assets/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 button {
@@ -71,11 +83,6 @@ button:hover {
 button i {
   color: white;
 }
-
-.container {
-  animation: slide 6s linear;
-}
-
 @keyframes slide {
   0% {
     transform: translateY(100px);
